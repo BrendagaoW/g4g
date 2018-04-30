@@ -29,6 +29,9 @@ public class BreadthFirstTraversal {
 
         System.out.println("\nLevel order traversal (line by line with 1 queue) of binary tree is - ");
         bft.breadthFirstTraversalLineByLine1Queue(node1);
+
+        System.out.println("\nLevel order traversal (line by line with delimiter) of binary tree is - ");
+        bft.breadthFirstTraversalLineByLineWithDelimiter(node1);
     }
 
 
@@ -93,10 +96,10 @@ public class BreadthFirstTraversal {
     // Time: O(n)
     // Space: O(w) where w is maximum width of Binary Tree
     private void breadthFirstTraversalLineByLine1Queue(BinaryTreeNode root) {
-        Queue<BinaryTreeNode> queue = new LinkedList<BinaryTreeNode>();
         if (root == null) {
             return;
         }
+        Queue<BinaryTreeNode> queue = new LinkedList<BinaryTreeNode>();
         queue.offer(root);
         BinaryTreeNode curNode;
 
@@ -113,6 +116,39 @@ public class BreadthFirstTraversal {
                 }
             }
             System.out.println();
+        }
+    }
+
+    // Print line by line, Using 1 queues
+    // Time: O(n)
+    // Space: O(w) where w is maximum width of Binary Tree
+    private void breadthFirstTraversalLineByLineWithDelimiter(BinaryTreeNode root) {
+        if (root == null) {
+            return;
+        }
+        Queue<BinaryTreeNode> queue = new LinkedList<BinaryTreeNode>();
+        // offer root and null as initialization
+        queue.offer(root);
+        queue.offer(null);
+
+        BinaryTreeNode curNode;
+        while (!queue.isEmpty()) {
+            curNode = queue.poll();
+            if (curNode == null) {
+                // need to check if queue is empty now
+                if (!queue.isEmpty()) {
+                    System.out.println();
+                    queue.offer(null);
+                }
+            } else {
+                System.out.print(curNode.getValue() + " ");
+                if (curNode.getLft() != null) {
+                    queue.offer(curNode.getLft());
+                }
+                if (curNode.getRgt() != null) {
+                    queue.offer(curNode.getRgt());
+                }
+            }
         }
     }
 
