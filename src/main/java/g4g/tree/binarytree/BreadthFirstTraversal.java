@@ -30,6 +30,9 @@ public class BreadthFirstTraversal {
         System.out.println("\nLevel order traversal (line by line with 1 queue) of binary tree is - ");
         bft.breadthFirstTraversalLineByLine1Queue(node1);
 
+        System.out.println("\nLevel order traversal (line by line with 1 queue and count) of binary tree is - ");
+        bft.breadthFirstTraversalLineByLine1QueueAndCount(node1);
+
         System.out.println("\nLevel order traversal (line by line with delimiter) of binary tree is - ");
         bft.breadthFirstTraversalLineByLineWithDelimiter(node1);
     }
@@ -113,6 +116,37 @@ public class BreadthFirstTraversal {
                 }
                 if (curNode.getRgt() != null) {
                     queue.offer(curNode.getRgt());
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    // Print line by line, Using 1 queues
+    // Time: O(n)
+    // Space: O(w) where w is maximum width of Binary Tree
+    private void breadthFirstTraversalLineByLine1QueueAndCount(BinaryTreeNode root) {
+        if (root == null) {
+            return;
+        }
+        Queue<BinaryTreeNode> queue = new LinkedList<BinaryTreeNode>();
+        queue.offer(root);
+        BinaryTreeNode curNode;
+        int currentLevelCount;
+        int nextLevelCount = 1;
+        while (!queue.isEmpty()) {
+            currentLevelCount = nextLevelCount;
+            nextLevelCount = 0;
+            for (int i=0; i<currentLevelCount; ++i) {
+                curNode = queue.poll();
+                System.out.print(curNode.getValue() + " ");
+                if (curNode.getLft() != null) {
+                    queue.offer(curNode.getLft());
+                    nextLevelCount++;
+                }
+                if (curNode.getRgt() != null) {
+                    queue.offer(curNode.getRgt());
+                    nextLevelCount++;
                 }
             }
             System.out.println();
