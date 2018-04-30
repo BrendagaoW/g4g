@@ -20,11 +20,16 @@ public class BreadthFirstTraversal {
         BinaryTreeNode node1 = new BinaryTreeNode(1, node2, node3);
 
         BreadthFirstTraversal bft = new BreadthFirstTraversal();
-        System.out.println("Level order traversal of binary tree is - ");
+        System.out.println("\nLevel order traversal of binary tree is - ");
         // expect 1 2 3 4 5
         bft.breadthFirstTraversal(node1);
+
+        System.out.println("\nLevel order traversal (line by line) of binary tree is - ");
+        bft.breadthFirstTraversalLineByLine(null);
     }
 
+
+    // ====================================================================================================
 
     // Use Queue
     // Time: O(n)
@@ -41,6 +46,43 @@ public class BreadthFirstTraversal {
             if (curNode.getRgt() != null) {
                 queue.offer(curNode.getRgt());
             }
+        }
+    }
+
+    // ====================================================================================================
+    // Using 2 queues
+    // Time: O(n)
+    // Space: O(w) where w is maximum width of Binary Tree
+
+    private void breadthFirstTraversalLineByLine(BinaryTreeNode root) {
+
+        Queue<BinaryTreeNode> queue1 = new LinkedList<BinaryTreeNode>();
+        Queue<BinaryTreeNode> queue2 = new LinkedList<BinaryTreeNode>();
+
+        queue1.offer(root);
+        BinaryTreeNode curNode;
+
+        while (!queue1.isEmpty() || !queue2.isEmpty()) {
+            while ((curNode = queue1.poll()) != null) {
+                System.out.print(curNode.getValue() + " ");
+                if (curNode.getLft() != null) {
+                    queue2.offer(curNode.getLft());
+                }
+                if (curNode.getRgt() != null) {
+                    queue2.offer(curNode.getRgt());
+                }
+            }
+            System.out.println();
+            while ((curNode = queue2.poll()) != null) {
+                System.out.print(curNode.getValue() + " ");
+                if (curNode.getLft() != null) {
+                    queue1.offer(curNode.getLft());
+                }
+                if (curNode.getRgt() != null) {
+                    queue1.offer(curNode.getRgt());
+                }
+            }
+            System.out.println();
         }
     }
 
