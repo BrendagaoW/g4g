@@ -82,6 +82,7 @@ public class IterativeTraversal {
                 } else {
                     curNode = stack.pop();
                     System.out.print(curNode.getValue() + " ");
+                    //  此处只需将cur移动到右子，下次循环是会进行入栈操作
                     curNode = curNode.getRgt();
                 }
             }
