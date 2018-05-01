@@ -2,6 +2,7 @@ package g4g.tree.binarytree;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 public class BreadthFirstTraversal {
 
@@ -35,6 +36,10 @@ public class BreadthFirstTraversal {
 
         System.out.println("\nLevel order traversal (line by line with delimiter) of binary tree is - ");
         bft.breadthFirstTraversalLineByLineWithDelimiter(node1);
+
+        System.out.println("\nReverse Level order traversal (line by line with delimiter) of binary tree is - ");
+        // expect 4 5 2 3 1
+        bft.breadthFirstTraversalReverse(node1);
     }
 
 
@@ -183,6 +188,30 @@ public class BreadthFirstTraversal {
                     queue.offer(curNode.getRgt());
                 }
             }
+        }
+    }
+
+    private void breadthFirstTraversalReverse(BinaryTreeNode root) {
+        if (root == null) {
+            return;
+        }
+
+        Queue<BinaryTreeNode> queue = new LinkedList<BinaryTreeNode>();
+        Stack<BinaryTreeNode> stack = new Stack<BinaryTreeNode>();
+        queue.offer(root);
+        BinaryTreeNode curNode;
+        while (!queue.isEmpty()) {
+            curNode = queue.poll();
+            stack.push(curNode);
+            if (curNode.getRgt() != null) {
+                queue.offer(curNode.getRgt());
+            }
+            if (curNode.getLft() != null) {
+                queue.offer(curNode.getLft());
+            }
+        }
+        while (!stack.isEmpty()) {
+            System.out.print(stack.pop().getValue() + " ");
         }
     }
 
