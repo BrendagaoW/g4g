@@ -179,6 +179,7 @@ public class BreadthFirstTraversal {
                     System.out.println();
                     queue.offer(null);
                 }
+                // 此处没必要写else，是因为如果queue.isEmpty() 了，那么在下个循环的时候就会自动退出
             } else {
                 System.out.print(curNode.getValue() + " ");
                 if (curNode.getLft() != null) {
