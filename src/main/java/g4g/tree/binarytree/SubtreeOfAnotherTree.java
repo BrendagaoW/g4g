@@ -11,47 +11,47 @@ public class SubtreeOfAnotherTree {
 
     // 两种思路，一个是recursive遍历去查，一个是iterative遍历去查
 
-    public static boolean isSubtreeRecursive(BinaryTreeNode s, BinaryTreeNode t) {
+    public static boolean isSubtreeRecursive(TreeNode s, TreeNode t) {
         if (s == null) {
             return false;
         }
-        return isSameTree(s, t) || isSubtreeRecursive(s.getLft(), t) || isSubtreeRecursive(s.getRgt(), t);
+        return isSameTree(s, t) || isSubtreeRecursive(s.left, t) || isSubtreeRecursive(s.right, t);
     }
 
 
     // 思路： 广度优先遍历
-    public static boolean isSubtreeIterative(BinaryTreeNode s, BinaryTreeNode t) {
+    public static boolean isSubtreeIterative(TreeNode s, TreeNode t) {
         if (s == null) {
             return false;
         }
         if (t == null) {
             return true;
         }
-        Queue<BinaryTreeNode> queue = new LinkedList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(s);
-        BinaryTreeNode curNode;
+        TreeNode curNode;
         while ((curNode = queue.poll()) != null) {
             if (isSameTree(curNode, t)) {
                 return true;
             }
-            if (curNode.getLft() != null) {
-                queue.offer(curNode.getLft());
+            if (curNode.left != null) {
+                queue.offer(curNode.left);
             }
-            if (curNode.getRgt() != null) {
-                queue.offer(curNode.getRgt());
+            if (curNode.right != null) {
+                queue.offer(curNode.right);
             }
         }
         return false;
     }
 
 
-    public static boolean isSameTree(BinaryTreeNode s, BinaryTreeNode t) {
+    public static boolean isSameTree(TreeNode s, TreeNode t) {
         if (s == null && t == null) {
             return true;
         } else if (s == null || t == null) {
             return false;
         } else {
-            return (s.getValue() == t.getValue()) && isSameTree(s.getLft(), t.getLft()) && isSameTree(s.getRgt(), t.getRgt());
+            return (s.val == t.val) && isSameTree(s.left, t.left) && isSameTree(s.right, t.right);
         }
     }
 

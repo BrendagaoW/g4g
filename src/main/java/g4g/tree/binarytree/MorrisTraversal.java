@@ -16,11 +16,11 @@ public class MorrisTraversal {
           /  \
         4     5
         */
-        BinaryTreeNode node4 = new BinaryTreeNode(4);
-        BinaryTreeNode node5 = new BinaryTreeNode(5);
-        BinaryTreeNode node2 = new BinaryTreeNode(2, node4, node5);
-        BinaryTreeNode node3 = new BinaryTreeNode(3);
-        BinaryTreeNode node1 = new BinaryTreeNode(1, node2, node3);
+        TreeNode node4 = new TreeNode(4);
+        TreeNode node5 = new TreeNode(5);
+        TreeNode node2 = new TreeNode(2, node4, node5);
+        TreeNode node3 = new TreeNode(3);
+        TreeNode node1 = new TreeNode(1, node2, node3);
 
         MorrisTraversal morrisTraversal = new MorrisTraversal();
 
@@ -35,27 +35,27 @@ public class MorrisTraversal {
 
     // Time O(n)
     // Space O(1)
-    private void inOrderMorrisTraversal(BinaryTreeNode node) {
+    private void inOrderMorrisTraversal(TreeNode node) {
         System.out.print("InOrder: ");
-        BinaryTreeNode current = node;
+        TreeNode current = node;
         while (current != null) {
-            if (null == current.getLft()) {
-                System.out.print(current.getValue() + " ");
-                current = current.getRgt();
+            if (null == current.left) {
+                System.out.print(current.val + " ");
+                current = current.right;
             } else {
-                BinaryTreeNode predecessor = current.getLft();
-                while (null != predecessor.getRgt() && current != predecessor.getRgt()) {
-                    predecessor = predecessor.getRgt();
+                TreeNode predecessor = current.left;
+                while (null != predecessor.right && current != predecessor.right) {
+                    predecessor = predecessor.right;
                 }
-                if (predecessor.getRgt() == null) {
+                if (predecessor.right == null) {
                     // add link
-                    predecessor.setRgt(current);
-                    current = current.getLft();
+                    predecessor.right = current;
+                    current = current.left;
                 } else {
                     // remove link
-                    System.out.print(current.getValue() + " ");
-                    predecessor.setRgt(null);
-                    current = current.getRgt();
+                    System.out.print(current.val + " ");
+                    predecessor.right = null;
+                    current = current.right;
                 }
             }
         }
@@ -63,27 +63,27 @@ public class MorrisTraversal {
 
     // Time O(n)
     // Space O(1)
-    private void preOrderMorrisTraversal(BinaryTreeNode node) {
+    private void preOrderMorrisTraversal(TreeNode node) {
         System.out.print("preOrder: ");
-        BinaryTreeNode current = node;
+        TreeNode current = node;
         while (current != null) {
-            if (null == current.getLft()) {
-                System.out.print(current.getValue() + " ");
-                current = current.getRgt();
+            if (null == current.left) {
+                System.out.print(current.val + " ");
+                current = current.right;
             } else {
-                BinaryTreeNode predecessor = current.getLft();
-                while (null != predecessor.getRgt() && current != predecessor.getRgt()) {
-                    predecessor = predecessor.getRgt();
+                TreeNode predecessor = current.left;
+                while (null != predecessor.right && current != predecessor.right) {
+                    predecessor = predecessor.right;
                 }
-                if (null == predecessor.getRgt()) {
+                if (null == predecessor.right) {
                     // add link
-                    System.out.print(current.getValue() + " ");
-                    predecessor.setRgt(current);
-                    current = current.getLft();
+                    System.out.print(current.val + " ");
+                    predecessor.right = current;
+                    current = current.left;
                 } else {
                     // remove link
-                    predecessor.setRgt(null);
-                    current = current.getRgt();
+                    predecessor.right = null;
+                    current = current.right;
                 }
             }
         }

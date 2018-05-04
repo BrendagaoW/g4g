@@ -14,11 +14,11 @@ public class BreadthFirstTraversal {
           /  \
         4     5
         */
-        BinaryTreeNode node4 = new BinaryTreeNode(4);
-        BinaryTreeNode node5 = new BinaryTreeNode(5);
-        BinaryTreeNode node2 = new BinaryTreeNode(2, node4, node5);
-        BinaryTreeNode node3 = new BinaryTreeNode(3);
-        BinaryTreeNode node1 = new BinaryTreeNode(1, node2, node3);
+        TreeNode node4 = new TreeNode(4);
+        TreeNode node5 = new TreeNode(5);
+        TreeNode node2 = new TreeNode(2, node4, node5);
+        TreeNode node3 = new TreeNode(3);
+        TreeNode node1 = new TreeNode(1, node2, node3);
 
         BreadthFirstTraversal bft = new BreadthFirstTraversal();
         System.out.println("\nLevel order traversal of binary tree is - ");
@@ -48,17 +48,17 @@ public class BreadthFirstTraversal {
     // Print All, Use Queue
     // Time: O(n)
     // Space: O(w) where w is maximum width of Binary Tree
-    private void breadthFirstTraversal(BinaryTreeNode root) {
-        Queue<BinaryTreeNode> queue = new LinkedList<BinaryTreeNode>();
+    private void breadthFirstTraversal(TreeNode root) {
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
         queue.offer(root);
-        BinaryTreeNode curNode;
+        TreeNode curNode;
         while ((curNode = queue.poll()) != null) {
-            System.out.print(curNode.getValue() + " ");
-            if (curNode.getLft() != null) {
-                queue.offer(curNode.getLft());
+            System.out.print(curNode.val + " ");
+            if (curNode.left != null) {
+                queue.offer(curNode.left);
             }
-            if (curNode.getRgt() != null) {
-                queue.offer(curNode.getRgt());
+            if (curNode.right != null) {
+                queue.offer(curNode.right);
             }
         }
     }
@@ -68,32 +68,32 @@ public class BreadthFirstTraversal {
     // Time: O(n)
     // Space: O(w) where w is maximum width of Binary Tree
 
-    private void breadthFirstTraversalLineByLine2Queues(BinaryTreeNode root) {
+    private void breadthFirstTraversalLineByLine2Queues(TreeNode root) {
 
-        Queue<BinaryTreeNode> queue1 = new LinkedList<BinaryTreeNode>();
-        Queue<BinaryTreeNode> queue2 = new LinkedList<BinaryTreeNode>();
+        Queue<TreeNode> queue1 = new LinkedList<TreeNode>();
+        Queue<TreeNode> queue2 = new LinkedList<TreeNode>();
 
         queue1.offer(root);
-        BinaryTreeNode curNode;
+        TreeNode curNode;
 
         while (!queue1.isEmpty() || !queue2.isEmpty()) {
             while ((curNode = queue1.poll()) != null) {
-                System.out.print(curNode.getValue() + " ");
-                if (curNode.getLft() != null) {
-                    queue2.offer(curNode.getLft());
+                System.out.print(curNode.val + " ");
+                if (curNode.left != null) {
+                    queue2.offer(curNode.left);
                 }
-                if (curNode.getRgt() != null) {
-                    queue2.offer(curNode.getRgt());
+                if (curNode.right != null) {
+                    queue2.offer(curNode.right);
                 }
             }
             System.out.println();
             while ((curNode = queue2.poll()) != null) {
-                System.out.print(curNode.getValue() + " ");
-                if (curNode.getLft() != null) {
-                    queue1.offer(curNode.getLft());
+                System.out.print(curNode.val + " ");
+                if (curNode.left != null) {
+                    queue1.offer(curNode.left);
                 }
-                if (curNode.getRgt() != null) {
-                    queue1.offer(curNode.getRgt());
+                if (curNode.right != null) {
+                    queue1.offer(curNode.right);
                 }
             }
             System.out.println();
@@ -103,24 +103,24 @@ public class BreadthFirstTraversal {
     // Print line by line, Using 1 queues
     // Time: O(n)
     // Space: O(w) where w is maximum width of Binary Tree
-    private void breadthFirstTraversalLineByLine1Queue(BinaryTreeNode root) {
+    private void breadthFirstTraversalLineByLine1Queue(TreeNode root) {
         if (root == null) {
             return;
         }
-        Queue<BinaryTreeNode> queue = new LinkedList<BinaryTreeNode>();
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
         queue.offer(root);
-        BinaryTreeNode curNode;
+        TreeNode curNode;
 
         while (!queue.isEmpty()) {
             int lineSize = queue.size();
             for (int i=0; i<lineSize; ++i) {
                 curNode = queue.poll();
-                System.out.print(curNode.getValue() + " ");
-                if (curNode.getLft() != null) {
-                    queue.offer(curNode.getLft());
+                System.out.print(curNode.val + " ");
+                if (curNode.left != null) {
+                    queue.offer(curNode.left);
                 }
-                if (curNode.getRgt() != null) {
-                    queue.offer(curNode.getRgt());
+                if (curNode.right != null) {
+                    queue.offer(curNode.right);
                 }
             }
             System.out.println();
@@ -130,13 +130,13 @@ public class BreadthFirstTraversal {
     // Print line by line, Using 1 queues
     // Time: O(n)
     // Space: O(w) where w is maximum width of Binary Tree
-    private void breadthFirstTraversalLineByLine1QueueAndCount(BinaryTreeNode root) {
+    private void breadthFirstTraversalLineByLine1QueueAndCount(TreeNode root) {
         if (root == null) {
             return;
         }
-        Queue<BinaryTreeNode> queue = new LinkedList<BinaryTreeNode>();
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
         queue.offer(root);
-        BinaryTreeNode curNode;
+        TreeNode curNode;
         int currentLevelCount;
         int nextLevelCount = 1;
         while (!queue.isEmpty()) {
@@ -144,13 +144,13 @@ public class BreadthFirstTraversal {
             nextLevelCount = 0;
             for (int i=0; i<currentLevelCount; ++i) {
                 curNode = queue.poll();
-                System.out.print(curNode.getValue() + " ");
-                if (curNode.getLft() != null) {
-                    queue.offer(curNode.getLft());
+                System.out.print(curNode.val + " ");
+                if (curNode.left != null) {
+                    queue.offer(curNode.left);
                     nextLevelCount++;
                 }
-                if (curNode.getRgt() != null) {
-                    queue.offer(curNode.getRgt());
+                if (curNode.right != null) {
+                    queue.offer(curNode.right);
                     nextLevelCount++;
                 }
             }
@@ -161,16 +161,16 @@ public class BreadthFirstTraversal {
     // Print line by line, Using 1 queues
     // Time: O(n)
     // Space: O(w) where w is maximum width of Binary Tree
-    private void breadthFirstTraversalLineByLineWithDelimiter(BinaryTreeNode root) {
+    private void breadthFirstTraversalLineByLineWithDelimiter(TreeNode root) {
         if (root == null) {
             return;
         }
-        Queue<BinaryTreeNode> queue = new LinkedList<BinaryTreeNode>();
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
         // offer root and null as initialization
         queue.offer(root);
         queue.offer(null);
 
-        BinaryTreeNode curNode;
+        TreeNode curNode;
         while (!queue.isEmpty()) {
             curNode = queue.poll();
             if (curNode == null) {
@@ -181,38 +181,38 @@ public class BreadthFirstTraversal {
                 }
                 // 此处没必要写else，是因为如果queue.isEmpty() 了，那么在下个循环的时候就会自动退出
             } else {
-                System.out.print(curNode.getValue() + " ");
-                if (curNode.getLft() != null) {
-                    queue.offer(curNode.getLft());
+                System.out.print(curNode.val + " ");
+                if (curNode.left != null) {
+                    queue.offer(curNode.left);
                 }
-                if (curNode.getRgt() != null) {
-                    queue.offer(curNode.getRgt());
+                if (curNode.right != null) {
+                    queue.offer(curNode.right);
                 }
             }
         }
     }
 
-    private void breadthFirstTraversalReverse(BinaryTreeNode root) {
+    private void breadthFirstTraversalReverse(TreeNode root) {
         if (root == null) {
             return;
         }
 
-        Queue<BinaryTreeNode> queue = new LinkedList<BinaryTreeNode>();
-        Stack<BinaryTreeNode> stack = new Stack<BinaryTreeNode>();
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
+        Stack<TreeNode> stack = new Stack<TreeNode>();
         queue.offer(root);
-        BinaryTreeNode curNode;
+        TreeNode curNode;
         while (!queue.isEmpty()) {
             curNode = queue.poll();
             stack.push(curNode);
-            if (curNode.getRgt() != null) {
-                queue.offer(curNode.getRgt());
+            if (curNode.right != null) {
+                queue.offer(curNode.right);
             }
-            if (curNode.getLft() != null) {
-                queue.offer(curNode.getLft());
+            if (curNode.left != null) {
+                queue.offer(curNode.left);
             }
         }
         while (!stack.isEmpty()) {
-            System.out.print(stack.pop().getValue() + " ");
+            System.out.print(stack.pop().val + " ");
         }
     }
 

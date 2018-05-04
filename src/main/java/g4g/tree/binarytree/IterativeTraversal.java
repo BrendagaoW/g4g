@@ -13,11 +13,11 @@ public class IterativeTraversal {
           /  \
         4     5
         */
-        BinaryTreeNode node4 = new BinaryTreeNode(4);
-        BinaryTreeNode node5 = new BinaryTreeNode(5);
-        BinaryTreeNode node2 = new BinaryTreeNode(2, node4, node5);
-        BinaryTreeNode node3 = new BinaryTreeNode(3);
-        BinaryTreeNode node1 = new BinaryTreeNode(1, node2, node3);
+        TreeNode node4 = new TreeNode(4);
+        TreeNode node5 = new TreeNode(5);
+        TreeNode node2 = new TreeNode(2, node4, node5);
+        TreeNode node3 = new TreeNode(3);
+        TreeNode node1 = new TreeNode(1, node2, node3);
 
         IterativeTraversal iterativeTraversal = new IterativeTraversal();
 
@@ -39,24 +39,24 @@ public class IterativeTraversal {
     }
 
 
-    private void preOrder(BinaryTreeNode root) {
+    private void preOrder(TreeNode root) {
         if (root == null) {
             return;
         }
-        Stack<BinaryTreeNode> stack = new Stack<BinaryTreeNode>();
+        Stack<TreeNode> stack = new Stack<TreeNode>();
         stack.push(root);
 
-        BinaryTreeNode curNode;
+        TreeNode curNode;
 
         // 不能写成 while((curNode = stack.pop()) != null) 因为如果栈空的话，pop方法是throw EmptyStackException rather than return null
         while (!stack.isEmpty()) {
             curNode = stack.pop();
-            System.out.print(curNode.getValue() + " ");
-            if (curNode.getRgt() != null) {
-                stack.push(curNode.getRgt());
+            System.out.print(curNode.val + " ");
+            if (curNode.right != null) {
+                stack.push(curNode.right);
             }
-            if (curNode.getLft() != null) {
-                stack.push(curNode.getLft());
+            if (curNode.left != null) {
+                stack.push(curNode.left);
             }
         }
     }
@@ -66,85 +66,85 @@ public class IterativeTraversal {
      *
      * reference: https://www.youtube.com/watch?v=nzmtCFNae9k
      */
-    private void inOrder(BinaryTreeNode root) {
+    private void inOrder(TreeNode root) {
         if (root == null) {
             return;
         }
-        Stack<BinaryTreeNode> stack = new Stack<BinaryTreeNode>();
-        BinaryTreeNode curNode = root;
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        TreeNode curNode = root;
         while (true) {
             if (curNode != null) {
                 stack.push(curNode);
-                curNode = curNode.getLft();
+                curNode = curNode.left;
             } else {
                 if (stack.isEmpty()) {
                     break;
                 } else {
                     curNode = stack.pop();
-                    System.out.print(curNode.getValue() + " ");
+                    System.out.print(curNode.val + " ");
                     //  此处只需将cur移动到右子，下次循环是会进行入栈操作
-                    curNode = curNode.getRgt();
+                    curNode = curNode.right;
                 }
             }
         }
     }
 
-    private void postOrder(BinaryTreeNode root) {
+    private void postOrder(TreeNode root) {
         if (root == null) {
             return;
         }
-        Stack<BinaryTreeNode> stack1 = new Stack<BinaryTreeNode>();
-        Stack<BinaryTreeNode> stack2 = new Stack<BinaryTreeNode>();
+        Stack<TreeNode> stack1 = new Stack<TreeNode>();
+        Stack<TreeNode> stack2 = new Stack<TreeNode>();
 
         stack1.push(root);
         while (!stack1.isEmpty()) {
-            BinaryTreeNode node = stack1.pop();
+            TreeNode node = stack1.pop();
             stack2.push(node);
-            if (node.getLft() != null) {
-                stack1.push(node.getLft());
+            if (node.left != null) {
+                stack1.push(node.left);
             }
-            if (node.getRgt() != null) {
-                stack1.push(node.getRgt());
+            if (node.right != null) {
+                stack1.push(node.right);
             }
         }
         while (!stack2.isEmpty()) {
-            System.out.print(stack2.pop().getValue() + " ");
+            System.out.print(stack2.pop().val + " ");
         }
     }
 
-    private void postOrderOneStack(BinaryTreeNode root) {
+    private void postOrderOneStack(TreeNode root) {
         if (root == null) {
             return;
         }
-        Stack<BinaryTreeNode> stack = new Stack<BinaryTreeNode>();
+        Stack<TreeNode> stack = new Stack<TreeNode>();
         stack.push(root);
 
-        BinaryTreeNode prev = null;
+        TreeNode prev = null;
         while (!stack.isEmpty()) {
-            BinaryTreeNode curNode = stack.peek();
+            TreeNode curNode = stack.peek();
             // prev == null 是root节点的时候， prev.getLft() == curNode || prev.getRgt() == curNode意味着是从上往下在走，此时候，如果有左子，则入左子，若左子为空则入右子，若是叶子节点，则打印，出栈
-            if (prev == null || prev.getLft() == curNode || prev.getRgt() == curNode) {
-                if (curNode.getLft() != null) {
-                    stack.push(curNode.getLft());
-                } else if (curNode.getRgt() != null) {
-                    stack.push(curNode.getRgt());
+            if (prev == null || prev.left == curNode || prev.right == curNode) {
+                if (curNode.left != null) {
+                    stack.push(curNode.left);
+                } else if (curNode.right != null) {
+                    stack.push(curNode.right);
                 } else {
                     // 叶子节点
-                    System.out.print(curNode.getValue() + " ");
+                    System.out.print(curNode.val + " ");
                     stack.pop();
                 }
-            } else if (prev == curNode.getLft()) {
-                if (curNode.getRgt() == null) {
-                    // 左子树遍历完毕，打印此节点
-                    System.out.print(curNode.getValue() + " ");
+            } else if (prev == curNode.left) {
+                if (curNode.right == null) {
+                    // 左子树遍历完毕, 右子树为空，打印此节点，出栈
+                    System.out.print(curNode.val + " ");
                     stack.pop();
                 } else {
                     // 左子树遍历完毕，但是还有右子树，将右子树入栈
-                    stack.push(curNode.getRgt());
+                    stack.push(curNode.right);
                 }
-            } else if (prev == curNode.getRgt()) {
+            } else if (prev == curNode.right) {
                 // 右子树遍历完毕，打印，出栈
-                System.out.print(curNode.getValue() + " ");
+                System.out.print(curNode.val + " ");
                 stack.pop();
             }
             prev = curNode;
